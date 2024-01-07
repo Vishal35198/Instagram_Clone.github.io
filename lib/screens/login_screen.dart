@@ -55,77 +55,100 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //svg image
-            //textfield for email
-            //text fireld for password
-            //trsnstion k
-            const Flexible(
-              flex: 1,
-              child: SizedBox(),
-            ),
-            Text_field(
-              textEditingController: _emailController,
-              hintText: 'Enter Your Email',
-              textInputType: TextInputType.emailAddress,
-            ),
-            Text_field(
-              textEditingController: _passwordController,
-              hintText: 'password',
-              textInputType: TextInputType.text,
-              ispass: true,
-            ),
-            InkWell(
-              onTap: loginUser,
-              child: Container(
-                  alignment: Alignment.center,
-                  decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      color: blueColor),
-                  child: _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        )
-                      : const Text('Login')),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            const Flexible(
-              flex: 2,
-              child: SizedBox(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: const Text('Dont have an acoount'),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    navtosignup();
-                  },
-                  child: Container(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SafeArea(
+            child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //svg image
+              //textfield for email
+              //text fireld for password
+              //trsnstion k
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+              ),
+              Image.asset('lib/assets/instagram-removebg-preview.png'),
+              const SizedBox(
+                height: 10,
+              ),
+              Text_field(
+                textEditingController: _emailController,
+                hintText: 'Enter Your Email',
+                textInputType: TextInputType.emailAddress,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text_field(
+                textEditingController: _passwordController,
+                hintText: 'Enter Your Password',
+                textInputType: TextInputType.text,
+                ispass: true,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: loginUser,
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 45,
+                    decoration: const ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        color: blueColor),
+                    child: _isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
+                          )
+                        : const Text('Login')),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              // const Flexible(
+              //   flex: 2,
+              //   child: SizedBox(),
+              // ),
+              const Text(
+                'OR',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: const Text('Signup'),
+                    child: const Text('Dont have an Account'),
                   ),
-                )
-              ],
-            )
-          ],
-        ),
-      )),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      navtosignup();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'Sign up.',
+                        style: TextStyle(color: Colors.blue.shade100),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        )),
+      ),
     );
   }
 }
@@ -151,6 +174,8 @@ class Text_field extends StatelessWidget {
       obscureText: ispass,
       controller: textEditingController,
       decoration: InputDecoration(
+          filled: true,
+          fillColor: const Color.fromRGBO(245, 245, 245, 0.15),
           hintText: hintText,
           border: const OutlineInputBorder(
               borderSide: BorderSide(style: BorderStyle.solid))),

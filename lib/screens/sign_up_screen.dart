@@ -1,4 +1,5 @@
 // import 'dart:ffi';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -42,26 +43,36 @@ class _LoginScreenState extends State<SignUpScreen> {
   }
 
   void upload() async {
-    setState(() {
-      _isLoading = true;
-    });
-    String res = await Authmethods().signUpUser(
-        email: _email.text,
-        password: _password.text,
-        username: _username.text,
-        bio: _bio.text,
-        file: _image!);
-    // print('we moved after the function');
-    setState(() {
-      _isLoading = false;
-    });
-    if (res != 'success') {
-      showSnackBar(res, context);
+    if (_email.text.isEmpty &&
+        _password.text.isEmpty &&
+        _username.text.isEmpty &&
+        _bio.text.isEmpty) {
+      if (_image == null) {
+        showSnackBar('Please select a profile photo', context);
+      }
+      showSnackBar('Fill all the fields respectively', context);
     } else {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const ResposiveLayout(
-              webScreenLayout: WebScreenLayout(),
-              mobileScreenLayout: MobileScreen())));
+      setState(() {
+        _isLoading = true;
+      });
+      String res = await Authmethods().signUpUser(
+          email: _email.text,
+          password: _password.text,
+          username: _username.text,
+          bio: _bio.text,
+          file: _image!);
+      // print('we moved after the function');
+      setState(() {
+        _isLoading = false;
+      });
+      if (res != 'success') {
+        showSnackBar(res, context);
+      } else {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const ResposiveLayout(
+                webScreenLayout: WebScreenLayout(),
+                mobileScreenLayout: MobileScreen())));
+      }
     }
   }
 
@@ -78,108 +89,117 @@ class _LoginScreenState extends State<SignUpScreen> {
           child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Stack(
-              children: [
-                _image != null
-                    ? CircleAvatar(
-                        radius: 80,
-                        backgroundImage: MemoryImage(_image!),
-                      )
-                    : CircleAvatar(
-                        radius: 80,
-                        backgroundImage: NetworkImage(link),
-                      ),
-                Positioned(
-                    right: 1,
-                    bottom: 1,
-                    child: IconButton(
-                        onPressed: () {
-                          selectImage();
-                        },
-                        icon: const Icon(Icons.camera_enhance_rounded,
-                            color: Colors.black))),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text_field(
-              textEditingController: _username,
-              hintText: 'Enter your username',
-              textInputType: TextInputType.emailAddress,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text_field(
-              textEditingController: _email,
-              hintText: 'Enter your email',
-              textInputType: TextInputType.text,
-              // ispass: true,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text_field(
-              textEditingController: _password,
-              hintText: 'Enter your password',
-              textInputType: TextInputType.text,
-              ispass: true,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text_field(
-              textEditingController: _bio,
-              hintText: 'Enter your bio',
-              textInputType: TextInputType.text,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            InkWell(
-              onTap: upload,
-              child: Container(
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      color: blueColor),
-                  child: _isLoading
-                      ? const CircularProgressIndicator(
-                          color: primaryColor,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+              Image.asset(
+                'lib/assets/instagram-removebg-preview.png',
+              ),
+              Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 80,
+                          backgroundImage: MemoryImage(_image!),
                         )
-                      : const Text('Sign Up')),
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            const Flexible(
-              flex: 2,
-              child: SizedBox(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: const Text('already have an acocount'),
-                ),
-                GestureDetector(
-                  onTap: navtoLogin,
-                  child: Container(
+                      : CircleAvatar(
+                          radius: 80,
+                          backgroundImage: NetworkImage(link),
+                        ),
+                  Positioned(
+                      right: 1,
+                      bottom: 1,
+                      child: IconButton(
+                          onPressed: () {
+                            selectImage();
+                          },
+                          icon: Icon(Icons.camera_enhance_rounded,
+                              color: Colors.grey.shade100))),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text_field(
+                textEditingController: _username,
+                hintText: 'Enter your username',
+                textInputType: TextInputType.emailAddress,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text_field(
+                textEditingController: _email,
+                hintText: 'Enter your email',
+                textInputType: TextInputType.text,
+                // ispass: true,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text_field(
+                textEditingController: _password,
+                hintText: 'Enter your password',
+                textInputType: TextInputType.text,
+                ispass: true,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text_field(
+                textEditingController: _bio,
+                hintText: 'Enter your bio',
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                onTap: upload,
+                child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: const ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        color: blueColor),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(
+                            color: primaryColor,
+                          )
+                        : const Text('Sign Up')),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: const Text('log in instead'),
+                    child: const Text('Already have an account'),
                   ),
-                )
-              ],
-            )
-          ],
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  GestureDetector(
+                    onTap: navtoLogin,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Text(
+                        'Log in instead',
+                        style: TextStyle(color: Colors.blue.shade100),
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       )),
     );
@@ -208,6 +228,8 @@ class Text_field extends StatelessWidget {
       controller: textEditingController,
       decoration: InputDecoration(
           hintText: hintText,
+          filled: true,
+          fillColor: const Color.fromRGBO(245, 245, 245, 0.15),
           border: const OutlineInputBorder(
               borderSide: BorderSide(style: BorderStyle.solid))),
     );

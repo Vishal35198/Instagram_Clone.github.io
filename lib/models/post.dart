@@ -27,7 +27,8 @@ class Post {
         "postId": postId,
         "datePublished": datePublished,
         "profImage": profImage,
-        "postUrl": postUrl
+        "postUrl": postUrl,
+        "likes": likes
       };
   //take a doc snapshot and return the data
   static Post formSnap(DocumentSnapshot snap) {

@@ -13,7 +13,7 @@ class FeedScreen extends StatelessWidget {
           backgroundColor: mobileBackgroundColor,
           centerTitle: false,
           title: Align(
-            alignment: FractionalOffset(0.6, 0),
+            alignment: const FractionalOffset(0.6, 0),
             child: Image.asset(
               'lib/assets/instagram-removebg-preview.png',
               // fit: BoxFit.cover,

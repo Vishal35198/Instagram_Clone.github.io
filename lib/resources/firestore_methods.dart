@@ -2,10 +2,8 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/post.dart';
 import 'package:instagram_clone/resources/storage.dart';
-import 'package:instagram_clone/utils/image_pick.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {

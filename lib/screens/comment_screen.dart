@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/const/constant.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/utils/colors.dart';
-import 'package:instagram_clone/utils/const.dart';
 import 'package:instagram_clone/widgets/comments_card.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +30,7 @@ class _CommentScreenState extends State<CommentScreen> {
     return Scaffold(
       backgroundColor: mobileBackgroundColor,
       appBar: AppBar(
-        title: Text('Comments'),
+        title: const Text('Comments'),
       ),
       bottomNavigationBar: SafeArea(
         child: Container(
@@ -70,8 +67,9 @@ class _CommentScreenState extends State<CommentScreen> {
                       user.uid);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  child: Text(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  child: const Text(
                     'Post',
                     style: TextStyle(
                         color: blueColor,

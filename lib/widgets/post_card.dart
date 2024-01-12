@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/const/constant.dart';
+// import 'package:instagram_clone/const/constant.dart';
 import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
@@ -26,7 +26,6 @@ class _PostCardState extends State<PostCard> {
   int commentsLen = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getcomments();
   }
@@ -50,11 +49,11 @@ class _PostCardState extends State<PostCard> {
     // List _likes = widget.snap['likes'];
     return Container(
       color: mobileBackgroundColor,
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 4,
               horizontal: 16,
             ),
@@ -77,7 +76,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                     Text(
                       widget.snap['username'],
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
                 )),
@@ -107,7 +106,7 @@ class _PostCardState extends State<PostCard> {
                         ),
                       );
                     },
-                    icon: Icon(Icons.more_vert))
+                    icon: const Icon(Icons.more_vert))
               ],
             ),
           ),
@@ -148,7 +147,7 @@ class _PostCardState extends State<PostCard> {
                       isLikeAnimating = false;
                     });
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.favorite,
                     size: 120,
                   ),
@@ -184,13 +183,13 @@ class _PostCardState extends State<PostCard> {
                       ),
                     ));
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.comment_rounded,
                     // color: Colors.red,
                   )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.send
+                  icon: const Icon(Icons.send
                       // color: Colors.red,
                       )),
               Expanded(
@@ -198,14 +197,14 @@ class _PostCardState extends State<PostCard> {
                 alignment: Alignment.bottomRight,
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.bookmark),
+                  icon: const Icon(Icons.bookmark),
                 ),
               ))
             ],
           ),
           //description and number of commnets
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,7 +220,7 @@ class _PostCardState extends State<PostCard> {
                     )),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.only(top: 8),
+                  padding: const EdgeInsets.only(top: 8),
                   child: RichText(
                     text: TextSpan(
                         style: const TextStyle(color: primaryColor),
@@ -239,20 +238,16 @@ class _PostCardState extends State<PostCard> {
                 ),
                 InkWell(
                   onTap: () {}, //redirect to the comment screen
-                  child: Container(
-                    child: Text(
-                      'view all $commentsLen comments ',
-                      style: TextStyle(fontSize: 16, color: secondaryColor),
-                    ),
+                  child: Text(
+                    'view all $commentsLen comments ',
+                    style: const TextStyle(fontSize: 16, color: secondaryColor),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    DateFormat.yMMMd().format(
-                      widget.snap['datePublished'].toDate(),
-                    ),
-                    style: TextStyle(fontSize: 12, color: secondaryColor),
+                Text(
+                  DateFormat.yMMMd().format(
+                    widget.snap['datePublished'].toDate(),
                   ),
+                  style: const TextStyle(fontSize: 12, color: secondaryColor),
                 ),
               ],
             ),

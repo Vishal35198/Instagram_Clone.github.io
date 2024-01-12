@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_clone/models/user.dart';
-import 'package:instagram_clone/providers/user_provider.dart';
-import 'package:provider/provider.dart';
 
 class LikeAnimation extends StatefulWidget {
   final Widget child;
@@ -37,7 +34,6 @@ class _LikeAnimationState extends State<LikeAnimation>
 
   @override
   void didUpdateWidget(covariant LikeAnimation oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     if (widget.isAnimating != oldWidget.isAnimating) {
       startAnimation();
@@ -59,7 +55,6 @@ class _LikeAnimationState extends State<LikeAnimation>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     controller.dispose();
   }

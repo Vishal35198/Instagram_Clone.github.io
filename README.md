@@ -2,7 +2,10 @@
 
 [![Instagram Follow](https://img.shields.io/twitter/follow/iamjideguru.svg?style=social)](https://twitter.com/iamjideguru)
 
-Instagram Flutter clone 
+Instagram Flutter Clone 
+This is reposnive instagram clone it works on both web screen and mobile screen 
+It uses FIrebase as a BaAs(Backend as a Service).
+Uses Stream Builder , FIrebase Storage .
 
 <a href="http://www.feedbooks.com/"><img src="ss/logo_feedbooks.png" width="200"/></a>
 <br>
@@ -18,6 +21,7 @@ Instagram Flutter clone
 
 ## ✨ Features
 
+- [x] Resposive Design.
 - [x] Post Photos.
 - [x] Post commnets .
 - [x] Follow Users.

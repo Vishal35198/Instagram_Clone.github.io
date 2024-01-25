@@ -69,7 +69,7 @@ class _MobileScreenState extends State<MobileScreen> {
   @override
   Widget build(BuildContext context) {
     // models.User? user = Provider.of<UserProvider>(context).getUser;
-    final User user = Provider.of<UserProvider>(context).getUser;
+    // final User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       // appBar: AppBar(),
       body: PageView(

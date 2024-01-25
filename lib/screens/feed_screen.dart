@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/screens/chat_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/post_card.dart';
 
@@ -22,7 +23,12 @@ class FeedScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.messenger_outline))
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const MessageScreen(),
+                  ));
+                },
+                icon: const Icon(Icons.messenger_outline))
           ],
         ),
         body: StreamBuilder(
@@ -31,39 +37,29 @@ class FeedScreen extends StatelessWidget {
               context,
               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot,
             ) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasData && snapshot.data != null) {
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      final post = snapshot.data!.docs[index].data();
-                      return post != null
-                          ? Container(
-                              margin: EdgeInsets.symmetric(
-                                vertical: MediaQuery.of(context).size.width >
-                                        600
-                                    ? MediaQuery.of(context).size.width * 0.3
-                                    : 0,
-                                horizontal: MediaQuery.of(context).size.width >
-                                        600
-                                    ? MediaQuery.of(context).size.width * 0.3
-                                    : 0,
-                              ),
-                              child: PostCard(snap: snapshot.data!.docs[index]))
-                          : const SizedBox(); // or another placeholder widget
-                    },
-                  );
-                } else {
-                  return const Text('No data available');
-                }
-              }
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              return const Center(
-                child: Text('Error loading data'),
+              return ListView.builder(
+                itemCount: snapshot.data?.docs.length,
+                itemBuilder: (context, index) {
+                  // final post = snapshot.data?.docs[index].data();
+                  return Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.width > 600
+                          ? MediaQuery.of(context).size.width * 0.3
+                          : 0,
+                      horizontal: MediaQuery.of(context).size.width > 600
+                          ? MediaQuery.of(context).size.width * 0.3
+                          : 0,
+                    ),
+                    child: PostCard(
+                      snap: snapshot.data?.docs[index],
+                    ),
+                  );
+                },
               );
             }));
   }

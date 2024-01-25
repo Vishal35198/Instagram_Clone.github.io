@@ -85,7 +85,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   return StaggeredGridView.countBuilder(
                     crossAxisCount: 3,
                     itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) => Image.network(img1),
+                    itemBuilder: (context, index) => Image.network(
+                        (snapshot.data! as dynamic).docs[index]['postUrl']),
                     staggeredTileBuilder: (index) =>
                         MediaQuery.of(context).size.width > 600
                             ? StaggeredTile.count(
